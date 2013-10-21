@@ -1,31 +1,22 @@
 #!/usr/bin/env ruby
 
 class Problem002
-    def self.extend_until(value)
-        while(@fib.last.nil? || @fib.last < value)
-            a = @fib[-1] || 0
-            b = @fib[-2] || 1
+  def self.run
+    fib = [1, 1]
+    limit = 4_000_000
+    sum = 0
+    
+    while(fib[-1] < limit)
+      new_term = fib[-1] + fib[-2]
+      fib << new_term
 
-            @fib << a + b
-        end
+      # sum only the even terms      
+      sum += new_term if new_term % 2 == 0 
     end
-
-    def self.sum_even_valued_terms_under(value)
-        sum = 0
-        @fib.each do |val|
-            break if val > value
-            sum += val if (val % 2 == 0)
-        end
-
-        sum
-    end
-
-    def self.run
-        @fib = []
-        value = 4000000
-        extend_until(value)
-        sum_even_valued_terms_under(value)
-    end
+    
+    sum
+  end
 end
 
 p Problem002.run
+
